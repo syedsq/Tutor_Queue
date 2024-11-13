@@ -31,63 +31,60 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Success Tutoring Services</title>
-    <style>
-        /* Basic page setup with UTSA colors */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #00274d; /* UTSA Navy Blue */
-            color: white;
-            margin: 0;
-            padding: 0;
-        }
+    <script
+            async
+            crossorigin="anonymous"
+            data-clerk-publishable-key="pk_test_d2lsbGluZy1kaW5vc2F1ci05MS5jbGVyay5hY2NvdW50cy5kZXYk"
+            src="https://willing-dinosaur-91.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
+            type="text/javascript"
+    ></script>
+    <script src="auth.js"></script>
+    <link href="./assets/style.css" rel="stylesheet">
+    <script>
+        // Load Clerk and redirect if user is not signed in
+        window.addEventListener('load', async () => {
+            await Clerk.load();
 
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            color: black;
-        }
+            // Redirect if no user is signed in
+            if (!Clerk.user) {
+                window.location.href = 'user-auth/signin.php';
+            }
+            else{
+                const userButtonDiv = document.getElementById('user-button');
+                Clerk.mountUserButton(userButtonDiv);
+                const clerkUserId = Clerk.user.id;
+                console.log(clerkUserId);
+                fetch("./user-auth/get_user_by_id.php", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ clerk_user_id: clerkUserId })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.status === "success"){
+                            const user = data.user;
+                            console.log(user);
+                            const fullname = user.first_name + " " + user.last_name;
+                            document.getElementById("fullName").value = fullname;
+                            document.getElementById("email").value = user.email;
+                            document.getElementById("studentID").value = user.utsa_id;
 
-        h2 {
-            text-align: center;
-            color: #ff8200; /* UTSA Orange */
-        }
+                        }
+                        else{
+                            console.log("Could not get user", data);
+                        }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        input, select {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            background-color: #ff8200; /* UTSA Orange */
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-            padding: 10px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #e67300;
-        }
-    </style>
+                    })
+            }
+        });
+    </script>
 </head>
 <body>
+    <div class="user-button">
+        <div id="user-button"></div>
+    </div>
 
     <div class="container">
         <h2>CS LAB Tutoring</h2>
@@ -97,15 +94,15 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
 
             <!-- Full name -->
             <label for="fullName">Full Name</label>
-            <input type="text" id="fullName" name="fullName" required>
+            <input type="text" id="fullName" name="fullName" readonly required>
 
             <!-- Student ID -->
             <label for="studentID">Student ID</label>
-            <input type="text" id="studentID" name="studentID" required>
+            <input type="text" id="studentID" name="studentID" readonly required>
 
             <!-- Email -->
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" readonly required>
 
             <!-- Dynamic Class dropdown with tutor details based on availability -->
             <label for="class">Select Class</label>

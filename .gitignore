@@ -1,0 +1,26 @@
+# Ignore system files
+.idea/
+vendor/
+composer.phar
+composer.lock
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.cache
+
+# Ignore compiled or generated files
+*.class
+*.pyc
+*.pyo
+
+# Ignore unnecessary file types
+*.bak
+*.swp
+*.swo
+
+# Ignore env
+.env
+
+# Ignore macOS-specific files
+.DS_Store
