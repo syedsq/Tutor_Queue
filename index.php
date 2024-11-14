@@ -52,8 +52,6 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
             else{
                 const userButtonDiv = document.getElementById('user-button');
                 Clerk.mountUserButton(userButtonDiv);
-                const clerkUserId = Clerk.user.id;
-                console.log(clerkUserId);
                 fetch("./user-auth/get_user_by_id.php", {
                     method: 'POST',
                     headers: {
