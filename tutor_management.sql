@@ -244,6 +244,16 @@ ALTER TABLE `tutor_availability`
   ADD CONSTRAINT `tutor_availability_ibfk_1` FOREIGN KEY (`tutor_id`) REFERENCES `tutors` (`id`);
 COMMIT;
 
+-- Table for users
+CREATE TABLE users (
+                             clerk_user_id VARCHAR(32) NOT NULL,
+                             first_name VARCHAR(32) NOT NULL,
+                             last_name VARCHAR(32) NOT NULL,
+                             utsa_id VARCHAR(32),
+                             email VARCHAR(32) NOT NULL,
+                             PRIMARY KEY (clerk_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

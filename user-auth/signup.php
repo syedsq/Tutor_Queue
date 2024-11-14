@@ -20,6 +20,18 @@
 </body>
 
 <script>
+    <?php
+    require '../vendor/autoload.php';
+    use Dotenv\Dotenv;
+
+    $dotenv = Dotenv::createImmutable(__DIR__.'/../');
+    $dotenv->load();
+
+    $basePath = $_ENV["BASE_PATH"];
+    ?>
+
+    const basePath = "<?php echo $basePath; ?>";
+    console.log(basePath);
     window.addEventListener('load', async () => {
         await Clerk.load();
 
@@ -32,7 +44,7 @@
 
             Clerk.mountSignUp(signUpDiv, {
                 //register new user
-                afterSignUpUrl: 'tutor-queue/tutor-queue/new_user_flow.php',
+                afterSignUpUrl: `${basePath}user-auth/new_user_flow.php`,
             });
 
         }

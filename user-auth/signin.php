@@ -36,10 +36,23 @@
 </body>
 
 <script>
+
+    <?php
+    require '../vendor/autoload.php';
+    use Dotenv\Dotenv;
+
+    $dotenv = Dotenv::createImmutable(__DIR__.'/../');
+    $dotenv->load();
+
+    $basePath = $_ENV["BASE_PATH"];
+    ?>
+
+    const basePath = "<?php echo $basePath; ?>";
+    console.log(basePath);
     window.addEventListener('load', async () => {
         await Clerk.load();
         if (Clerk.user) {
-
+            window.location.href = `${basePath}`;
         }
         else {
             document.getElementById('app').innerHTML = `<div id="sign-in"></div>`;
@@ -47,8 +60,8 @@
             const signInDiv = document.getElementById('sign-in')
 
             Clerk.mountSignIn(signInDiv, {
-                redirectUrl: './user-auth/new_user_flow.php',
-                signUpUrl: './user-auth/signup.php'
+                redirectUrl: `${basePath}user-auth/new_user_flow.php`,
+                signUpUrl: `${basePath}user-auth/signup.php`
             });
         }
     });
