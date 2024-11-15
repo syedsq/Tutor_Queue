@@ -51,6 +51,7 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
             }
             else{
                 const userButtonDiv = document.getElementById('user-button');
+                const clerkUserId = Clerk.user.id;
                 Clerk.mountUserButton(userButtonDiv);
                 fetch("./user-auth/get_user_by_id.php", {
                     method: 'POST',
@@ -64,11 +65,11 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
                         if(data.status === "success"){
                             const user = data.user;
                             console.log(user);
-                            const fullname = user.first_name + " " + user.last_name;
-                            document.getElementById("fullName").value = fullname;
+                            const firstName = user.first_name;
+                            document.getElementById("fullName").value = user.first_name + " " + user.last_name;
                             document.getElementById("email").value = user.email;
                             document.getElementById("studentID").value = user.utsa_id;
-
+                            document.getElementById("title").innerHTML = `Hello ${firstName}! Request a Tutor`;
                         }
                         else{
                             console.log("Could not get user", data);
@@ -85,7 +86,7 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
     </div>
 
     <div class="container">
-        <h2>CS LAB Tutoring</h2>
+        <h2 id="title">CS LAB Tutoring</h2>
         
         <!-- Form to capture student info -->
         <form action="submit_form.php" method="POST">
