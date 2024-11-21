@@ -23,6 +23,8 @@ $availableClasses = $availabilityStmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch session types
 $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +51,7 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
             if (!Clerk.user) {
                 window.location.href = 'user-auth/signin.php';
             }
+            //clerk user found
             else{
                 const userButtonDiv = document.getElementById('user-button');
                 const clerkUserId = Clerk.user.id;
@@ -62,8 +65,10 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
                 })
                     .then(response => response.json())
                     .then(data => {
+                        //if response is successful we got the user data
                         if (data.status === "success") {
                             const user = data.user;
+                            //checking if user is an admin
                             fetch("./user-auth/is_admin_user.php", {
                                 method: 'POST',
                                 headers: {
@@ -74,6 +79,7 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
                                 .then(response => response.json())
                                 .then(data => {
                                     console.log(data);
+                                    //success means that its an admin and redirect to admin portal
                                     if (data.status === "success") {
                                         document.location.href = "admin_portal.php";
                                     }
@@ -84,11 +90,39 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
                                         document.getElementById("email").value = user.email;
                                         document.getElementById("studentID").value = user.utsa_id;
                                         document.getElementById("title").innerHTML = `Hello ${firstName}! Request a Tutor`;
+
+                                        //get courses
+                                        fetch("get_courses.php", {
+                                            method: 'POST',
+                                            headers:{
+                                                "Content-Type": 'application/json'
+                                            },
+                                            body: JSON.stringify({userType: "student", id: user.utsa_id})
+                                        })
+                                            .then(response => response.json())
+                                            .then(data =>{
+                                                //able to retrieve the courses
+                                                if(data.status === "success"){
+                                                    console.log("success");
+                                                    const courses = data.courses;
+                                                    console.log(courses);
+
+                                                    const courseSelectEl = document.getElementById("class");
+                                                    for(var course of courses){
+                                                        const optionElement = new Option(course.toString(), course.toString());
+                                                        courseSelectEl.append(optionElement);
+                                                    }
+                                                }
+                                                else{
+                                                    //TODO: handle what happens when courses not found
+                                                }
+                                            })
+                                            .catch(error => console.error('Error:', error));
+
                                     }
                                 })
                         }
                     })
-
             }
         });
     </script>
@@ -120,11 +154,11 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
             <label for="class">Select Class</label>
             <select id="class" name="class" required>
                 <option value="">-- Select a Class --</option>
-                <?php foreach ($availableClasses as $class): ?>
-                    <option value="<?php echo htmlspecialchars($class['subject']); ?>">
-                        <?php echo htmlspecialchars($class['subject']) . " (Tutor: " . htmlspecialchars($class['tutor_name']) . ")"; ?>
-                    </option>
-                <?php endforeach; ?>
+<!--                --><?php //foreach ($availableClasses as $class): ?>
+<!--                    <option value="--><?php //echo htmlspecialchars($class['subject']); ?><!--">-->
+<!--                        --><?php //echo htmlspecialchars($class['subject']) . " (Tutor: " . htmlspecialchars($class['tutor_name']) . ")"; ?>
+<!--                    </option>-->
+<!--                --><?php //endforeach; ?>
             </select>
 
             <!-- Session Type dropdown -->
