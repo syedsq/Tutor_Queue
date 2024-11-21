@@ -9,35 +9,17 @@ require 'db_connect.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Portal</title>
+    <link href="./assets/style.css" rel="stylesheet">
+    <script
+            async
+            crossorigin="anonymous"
+            data-clerk-publishable-key="pk_test_d2lsbGluZy1kaW5vc2F1ci05MS5jbGVyay5hY2NvdW50cy5kZXYk"
+            src="https://willing-dinosaur-91.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
+            type="text/javascript"
+    ></script>
     <style>
-        /* Basic styling */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            width: 400px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        h2 {
-            color: #ff8200;
-            margin-bottom: 20px;
-        }
-
         .button {
-            background-color: #007bff;
+            background-color: #0c2340;
             color: white;
             padding: 10px 20px;
             text-decoration: none;
@@ -48,12 +30,62 @@ require 'db_connect.php';
         }
 
         .button:hover {
-            background-color: #0056b3;
+            background-color: #173863;
         }
     </style>
+
+    <script>
+        window.addEventListener("load", async () =>{
+            await Clerk.load();
+
+            // Redirect if no user is signed in
+            if (!Clerk.user) {
+                window.location.href = 'user-auth/signin.php';
+            }
+            else{
+                const userButtonDiv = document.getElementById('user-button');
+                const clerkUserId = Clerk.user.id;
+                console.log(Clerk.user);
+                Clerk.mountUserButton(userButtonDiv);
+                fetch("./user-auth/get_user_by_id.php", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ clerk_user_id: clerkUserId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.status === "success"){
+                        const user = data.user;
+                        //check if user exists on admin table
+                        fetch("./user-auth/is_admin_user.php", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({utsa_id : user.utsa_id})
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data);
+                                if(data.status !== "success"){
+                                    document.location.href = "index.php";
+                                }
+                            })
+                    }
+                    else{
+                        console.log("Could not get user", data);
+                    }
+                })
+            }
+        })
+    </script>
 </head>
 <body>
-
+    <div class="user-button">
+        <div id="user-button"></div>
+    </div>
     <div class="container">
         <h2>Admin Portal</h2>
 

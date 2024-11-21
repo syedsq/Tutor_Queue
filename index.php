@@ -62,20 +62,33 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
                 })
                     .then(response => response.json())
                     .then(data => {
-                        if(data.status === "success"){
+                        if (data.status === "success") {
                             const user = data.user;
-                            console.log(user);
-                            const firstName = user.first_name;
-                            document.getElementById("fullName").value = user.first_name + " " + user.last_name;
-                            document.getElementById("email").value = user.email;
-                            document.getElementById("studentID").value = user.utsa_id;
-                            document.getElementById("title").innerHTML = `Hello ${firstName}! Request a Tutor`;
+                            fetch("./user-auth/is_admin_user.php", {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({utsa_id: user.utsa_id})
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log(data);
+                                    if (data.status === "success") {
+                                        document.location.href = "admin_portal.php";
+                                    }
+                                    else {
+                                        console.log(user);
+                                        const firstName = user.first_name;
+                                        document.getElementById("fullName").value = user.first_name + " " + user.last_name;
+                                        document.getElementById("email").value = user.email;
+                                        document.getElementById("studentID").value = user.utsa_id;
+                                        document.getElementById("title").innerHTML = `Hello ${firstName}! Request a Tutor`;
+                                    }
+                                })
                         }
-                        else{
-                            console.log("Could not get user", data);
-                        }
-
                     })
+
             }
         });
     </script>
