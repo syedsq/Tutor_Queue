@@ -10,21 +10,18 @@ $class = $_POST['class'];
 $sessionType = $_POST['sessionType'];
 $subject = $_POST['subject'];
 
-// Insert the student into the queue for the selected class
-$insertQuery = "INSERT INTO students (full_name, student_id, email, class, session_type, subject) VALUES (:fullName, :studentID, :email, :class, :sessionType, :subject)";
-$stmt = $conn->prepare($insertQuery);
+$requestQuery = "INSERT INTO requests (student_name, student_id, course_id, topic) VALUES (:fullName, :studentID, :courseID, :topic)";
+$stmt = $conn->prepare($requestQuery);
 $stmt->bindParam(':fullName', $fullName);
 $stmt->bindParam(':studentID', $studentID);
-$stmt->bindParam(':email', $email);
-$stmt->bindParam(':class', $class);
-$stmt->bindParam(':sessionType', $sessionType);
-$stmt->bindParam(':subject', $subject);
+$stmt->bindParam(':courseID', $class);
+$stmt->bindParam(':topic', $subject);
 $stmt->execute();
 
 // Get the student's position in the queue
-$positionQuery = "SELECT COUNT(*) AS position FROM students WHERE class = :class AND submission_time <= NOW()";
+$positionQuery = "SELECT COUNT(*) AS position FROM requests WHERE course_id = :course_id AND submission_time <= NOW()";
 $positionStmt = $conn->prepare($positionQuery);
-$positionStmt->bindParam(':class', $class);
+$positionStmt->bindParam(':course_id', $class);
 $positionStmt->execute();
 $position = $positionStmt->fetch(PDO::FETCH_ASSOC)['position'];
 ?>
