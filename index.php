@@ -121,6 +121,10 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
                                     }
                                 })
                         }
+                        else{
+                            //redirects user to signin if user is not found
+                            window.location.href = 'user-auth/signin.php';
+                        }
                     })
             }
         });

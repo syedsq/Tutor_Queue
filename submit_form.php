@@ -57,22 +57,16 @@ for($j=0; $j<count($availableTutors); $j++){
     }
 }
 
-
-$requestQuery = "INSERT INTO requests (student_name, student_id, course_id, topic) VALUES (:fullName, :studentID, :courseID, :topic)";
+//put into request
+$requestQuery = "INSERT INTO requests (student_name, student_id, course_id, topic, session_type) VALUES (:fullName, :studentID, :courseID, :topic, :session_type)";
 $stmt = $conn->prepare($requestQuery);
 $stmt->bindParam(':fullName', $fullName);
 $stmt->bindParam(':studentID', $studentID);
 $stmt->bindParam(':courseID', $class);
 $stmt->bindParam(':topic', $subject);
+$stmt->bindParam(':session_type', $sessionType);
 $stmt->execute();
 $requestID = $conn->lastInsertId();
-
-// Get the student's position in the tutor's queue
-$positionQuery = "SELECT COUNT(*) AS position FROM requests WHERE course_id = :course_id AND submission_time <= NOW()";
-$positionStmt = $conn->prepare($positionQuery);
-$positionStmt->bindParam(':course_id', $class);
-$positionStmt->execute();
-$position = $positionStmt->fetch(PDO::FETCH_ASSOC)['position'];
 ?>
 
 <!DOCTYPE html>
