@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_tutor'])) {
 // Handle removing a tutor
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove_tutor'])) {
     $tutor_id = $_POST['tutor_id'];
-    $query = "DELETE FROM tutors WHERE id = :tutor_id";
+    $query = "DELETE FROM tutors WHERE utsa_id = :tutor_id";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':tutor_id', $tutor_id);
     $stmt->execute();
