@@ -167,11 +167,11 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
             </select>
 
             <!-- Subject -->
-            <label for="subject">Subject</label>
+            <label for="subject">What topic would you like to go over?</label>
             <input type="text" id="subject" name="subject" required>
 
             <!-- Submit button -->
-            <input type="submit" value="Submit">
+            <input type="submit" value="Find Tutors!">
         </form>
     </div>
 

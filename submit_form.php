@@ -38,7 +38,25 @@ for($i=0; $i<count($tutorIDs); $i++){
     }
 
 }
+
 //find most available tutor
+$mostAvailableTutorID = $availableTutors[0];
+$minQueueSize = PHP_INT_MAX;
+for($j=0; $j<count($availableTutors); $j++){
+    //count how many requests have been assigned to each tutor
+    $tutorID = $availableTutors[$j];
+    $queueSizeQuery = "SELECT COUNT(*) as queue_size FROM requests where assigned_tutor='$tutorID' ";
+    $stmt = $conn->prepare($queueSizeQuery);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $queueSize = $result['queue_size'];
+
+    if($queueSize < $minQueueSize){
+        $minQueueSize = $queueSize;
+        $mostAvailableTutorID = $tutorID;
+    }
+}
+
 
 $requestQuery = "INSERT INTO requests (student_name, student_id, course_id, topic) VALUES (:fullName, :studentID, :courseID, :topic)";
 $stmt = $conn->prepare($requestQuery);
@@ -47,6 +65,7 @@ $stmt->bindParam(':studentID', $studentID);
 $stmt->bindParam(':courseID', $class);
 $stmt->bindParam(':topic', $subject);
 $stmt->execute();
+$requestID = $conn->lastInsertId();
 
 // Get the student's position in the tutor's queue
 $positionQuery = "SELECT COUNT(*) AS position FROM requests WHERE course_id = :course_id AND submission_time <= NOW()";
@@ -116,14 +135,29 @@ $position = $positionStmt->fetch(PDO::FETCH_ASSOC)['position'];
 <body>
 
 <div class="container">
-    <h2>Thank you for your submission, <?php echo htmlspecialchars($fullName); ?>!</h2>
-    <p>You are number <?php echo $position; ?> in the queue for <?php echo htmlspecialchars($class); ?>.</p>
-    
-    <div class="buttons">
-        <a href="index.php">Home</a>
-        <button onclick="window.open('feedback.php?student_id=<?php echo $studentID; ?>', '_blank')">Give Feedback</button>
-    </div>
-</div>
+    <form method="post" action="submit_request.php">
+        <h2>Select a Tutor</h2>
+        <?php
+
+        for($i=0; $i<count($availableTutors); $i++){
+            $tutorID = $availableTutors[$i];
+            $tutorNameSQL = "SELECT tutor_name FROM tutors where utsa_id='$tutorID'";
+            $stmt = $conn->prepare($tutorNameSQL);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $tutorName = $result['tutor_name'];
+
+            if($tutorID == $mostAvailableTutorID) $tutorName .= " (Most Available)";
+
+            echo "<label>";
+            echo "<input type='radio' name='tutor_id' value='$availableTutors[$i]'> $tutorName</>";
+            echo "</label><br>";
+        }
+        ?>
+        <input type="hidden" name="request_id" value="<?php echo $requestID; ?>">
+
+        <input type="submit" name="Submit Tutor Request">
+    </form>
 
 </body>
 </html>
