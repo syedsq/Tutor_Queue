@@ -10,6 +10,36 @@ $class = $_POST['class'];
 $sessionType = $_POST['sessionType'];
 $subject = $_POST['subject'];
 
+//find all tutors that are logged in
+$tutorQuery = "SELECT tutor_id from tutor_courses where course_id='$class'";
+$stmt = $conn->prepare($tutorQuery);
+$stmt->execute();
+$tutorIDs = $stmt->fetchAll();
+
+$availableTutors = [];
+for($i=0; $i<count($tutorIDs); $i++){
+    $tutorID = $tutorIDs[$i]['tutor_id'];
+    $isAvailableQuery = "SELECT is_logged_in from tutors where utsa_id='$tutorID'";
+    $stmt = $conn->prepare($isAvailableQuery);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (isset($result['is_logged_in'])){
+        $isAvailable = $result['is_logged_in'];
+        if($isAvailable){
+            array_push($availableTutors, $tutorID);
+            echo "<script> console.log('Available: $tutorID');</script>";
+        }
+        else{
+            echo "<script> console.log('Unavailable: $tutorID');</script>";
+        }
+    }
+    else{
+        echo "<script> console.log('Could not extract is_logged_in for tutor: $tutorID');</script>";
+    }
+
+}
+//find most available tutor
+
 $requestQuery = "INSERT INTO requests (student_name, student_id, course_id, topic) VALUES (:fullName, :studentID, :courseID, :topic)";
 $stmt = $conn->prepare($requestQuery);
 $stmt->bindParam(':fullName', $fullName);
@@ -18,7 +48,7 @@ $stmt->bindParam(':courseID', $class);
 $stmt->bindParam(':topic', $subject);
 $stmt->execute();
 
-// Get the student's position in the queue
+// Get the student's position in the tutor's queue
 $positionQuery = "SELECT COUNT(*) AS position FROM requests WHERE course_id = :course_id AND submission_time <= NOW()";
 $positionStmt = $conn->prepare($positionQuery);
 $positionStmt->bindParam(':course_id', $class);

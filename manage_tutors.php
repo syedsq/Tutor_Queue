@@ -190,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove_tutor'])) {
                 abc123: <?php echo htmlspecialchars($tutor['utsa_id']); ?>
                 
                 <form method="POST" action="manage_tutors.php" style="display:inline;">
-                    <input type="hidden" name="tutor_id" value="<?php echo $tutor['id']; ?>">
+                    <input type="hidden" name="tutor_id" value="<?php echo $tutor['utsa_id']; ?>">
                     <button type="submit" class="remove-button" name="remove_tutor">Remove</button>
                 </form>
             </li>

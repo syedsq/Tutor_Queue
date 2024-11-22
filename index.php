@@ -118,7 +118,6 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
                                                 }
                                             })
                                             .catch(error => console.error('Error:', error));
-
                                     }
                                 })
                         }
@@ -154,11 +153,6 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
             <label for="class">Select Class</label>
             <select id="class" name="class" required>
                 <option value="">-- Select a Class --</option>
-<!--                --><?php //foreach ($availableClasses as $class): ?>
-<!--                    <option value="--><?php //echo htmlspecialchars($class['subject']); ?><!--">-->
-<!--                        --><?php //echo htmlspecialchars($class['subject']) . " (Tutor: " . htmlspecialchars($class['tutor_name']) . ")"; ?>
-<!--                    </option>-->
-<!--                --><?php //endforeach; ?>
             </select>
 
             <!-- Session Type dropdown -->
