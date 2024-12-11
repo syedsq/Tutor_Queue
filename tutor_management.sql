@@ -246,13 +246,57 @@ COMMIT;
 
 -- Table for users
 CREATE TABLE users (
-                             clerk_user_id VARCHAR(32) NOT NULL,
-                             first_name VARCHAR(32) NOT NULL,
-                             last_name VARCHAR(32) NOT NULL,
-                             utsa_id VARCHAR(32),
-                             email VARCHAR(32) NOT NULL,
-                             PRIMARY KEY (clerk_user_id)
+     clerk_user_id VARCHAR(32) NOT NULL,
+     first_name VARCHAR(32) NOT NULL,
+     last_name VARCHAR(32) NOT NULL,
+     utsa_id VARCHAR(32),
+     email VARCHAR(32) NOT NULL,
+     PRIMARY KEY (clerk_user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Stores all courses
+CREATE TABLE courses (
+      id INT(11) AUTO_INCREMENT PRIMARY KEY,
+      course_id VARCHAR(32) NOT NULL,
+      course_name VARCHAR(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--Table to store tutor requests
+CREATE TABLE requests (
+      id INT(11) AUTO_INCREMENT PRIMARY KEY,
+      student_name VARCHAR(64) NOT NULL,
+      student_id VARCHAR(32) NOT NULL,
+      course_id VARCHAR(32) NOT NULL,
+      topic VARCHAR(64) NOT NULL,
+      submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Maps tutors to courses they teach
+CREATE TABLE tutor_courses (
+    tutor_id VARCHAR(32) NOT NULL,
+    course_id VARCHAR(32) NOT NULL,
+    id INT(11) AUTO_INCREMENT PRIMARY KEY
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Maps students to courses they take
+CREATE TABLE student_course (
+    student_id VARCHAR(32) NOT NULL,
+    course_id VARCHAR(32) NOT NULL,
+    id INT(11) AUTO_INCREMENT PRIMARY KEY
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--List of all registered student ids
+CREATE TABLE student_data (
+    utsa_id VARCHAR(32) NOT NULL,
+    id INT(11) AUTO_INCREMENT PRIMARY KEY
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--List of all registered admin ids
+CREATE TABLE admins(
+    utsa_id VARCHAR(32) NOT NULL,
+    id INT(11) AUTO_INCREMENT PRIMARY KEY
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

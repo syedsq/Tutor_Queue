@@ -139,6 +139,35 @@ $sessions = $sessionsStmt->fetchAll(PDO::FETCH_ASSOC);
         </tr>
         <?php endforeach; ?>
     </table>
+
+    <h3>Course data</h3>
+    <table>
+        <tr>
+            <th>Course</th>
+            <th>Number of Requests</th>
+            <th>Total session time (minutes)</th>
+        </tr>
+        <?php
+            $sql = "SELECT subject, COUNT(*) AS session_count, SUM(session_duration) AS total_duration
+            FROM tutor_sessions
+            GROUP BY subject";
+
+            $result = $conn->query($sql);
+            if ($result->rowCount() > 0) {
+                // Output data for each row
+                while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row["subject"]) . "</td>";
+                    echo "<td>" . htmlspecialchars($row["session_count"]) . "</td>";
+                    echo "<td>" . htmlspecialchars($row["total_duration"]) . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='3'>No data available</td></tr>";
+            }
+
+        ?>
+    </table>
 </div>
 
 </body>

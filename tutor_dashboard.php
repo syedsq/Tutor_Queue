@@ -24,13 +24,18 @@ $totalStudents = $totalStmt->fetchColumn();
 // Calculate total pages
 $totalPages = ceil($totalStudents / $resultsPerPage);
 
+
 // Fetch students for the current page
-$query = "SELECT * FROM students ORDER BY submission_time ASC LIMIT :startingLimit, :resultsPerPage";
+$query = "SELECT * FROM requests ORDER BY submission_time ASC LIMIT :startingLimit, :resultsPerPage";
 $stmt = $conn->prepare($query);
 $stmt->bindParam(':startingLimit', $startingLimit, PDO::PARAM_INT);
 $stmt->bindParam(':resultsPerPage', $resultsPerPage, PDO::PARAM_INT);
 $stmt->execute();
-$students = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$student_requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +44,7 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutor Dashboard</title>
+    <link href="./assets/style.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -187,19 +193,115 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
             background-color: #e67300;
         }
     </style>
+    <script
+            async
+            crossorigin="anonymous"
+            data-clerk-publishable-key="pk_test_d2lsbGluZy1kaW5vc2F1ci05MS5jbGVyay5hY2NvdW50cy5kZXYk"
+            src="https://willing-dinosaur-91.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
+            type="text/javascript"
+    ></script>
+
+    <script>
+        window.addEventListener('load', async () =>{
+            await Clerk.load();
+            if(!Clerk.user){
+                window.location.href = 'user-auth/signin.php';
+            }
+            else{
+                const userButtonDiv = document.getElementById('user-button');
+                const clerkUserId = Clerk.user.id;
+                Clerk.mountUserButton(userButtonDiv);
+                fetch("./user-auth/get_user_by_id.php", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ clerk_user_id: clerkUserId })
+                })
+                    .then(response => response.json())
+                    .then(data =>{
+                        if(data.status === "success"){
+                            const user = data.user;
+                            //check if user is a tutor
+                            fetch('./user-auth/is_tutor_user.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({utsa_id: user.utsa_id})
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log(data);
+                                    if(data.status === 'error'){
+                                        window.location.href = 'index.php';
+                                    }
+                                    else{
+                                        const user = data.user;
+                                        fetch('get_tutor_requests.php', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({tutorID: user.utsa_id})
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if(data.status === "success"){
+                                                    console.log(data);
+
+                                                    const sessionPrompt = document.getElementById("sessionPrompt");
+                                                    const sessionControls = document.getElementById("sessionControls");
+                                                    const timerContainer = document.getElementById("timerContainer");
+
+                                                    const listOfStudentsElement = document.getElementById('studentList');
+                                                    const students = data.students;
+
+                                                    for(const student of students){
+                                                        var li = document.createElement('li');
+                                                        li.setAttribute("data-student-name", student.student_name);
+                                                        li.setAttribute("data-student-id", student.student_id);
+                                                        li.setAttribute("data-subject", student.topic);
+                                                        li.textContent = `${student.student_name} - ${student.topic}`;
+
+                                                        li.addEventListener('click', function () {
+                                                            selectedStudentId = this.dataset.studentId;
+                                                            selectedStudentName = this.dataset.studentName;
+                                                            selectedStudentSubject = this.dataset.subject;
+
+                                                            sessionPrompt.textContent = `Start session with ${selectedStudentName}?`;
+                                                            sessionControls.style.display = "block";
+                                                        });
+
+                                                        listOfStudentsElement.appendChild(li);
+                                                    }
+                                                }
+                                                else {
+                                                    console.log(data);
+                                                }
+                                            })
+                                    }
+                                })
+
+                        }
+                        else{
+                            window.location.href = 'user-auth/signin.php';
+                        }
+                    })
+            }
+
+        })
+    </script>
 </head>
 <body>
-
+    <div class="user-button">
+        <div id="user-button"></div>
+    </div>
     <div class="dashboard">
         <!-- List of Students -->
         <div class="student-list">
-            <h3>List of Students</h3>
+            <h3>Tutoring Requests</h3>
             <ul id="studentList">
-                <?php foreach ($students as $student): ?>
-                <li data-student-name="<?php echo htmlspecialchars($student['full_name']); ?>" data-student-id="<?php echo $student['id']; ?>" data-subject="<?php echo htmlspecialchars($student['subject']); ?>">
-                    <?php echo htmlspecialchars($student['full_name']) . ' - ' . htmlspecialchars($student['subject']); ?>
-                </li>
-                <?php endforeach; ?>
             </ul>
             <a href="tutor_history.php" target="_blank" class="tutor-history-btn">Tutor History</a>
         </div>
@@ -216,13 +318,13 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="timer-container" id="timerContainer"></div>
         </div>
 
-        <div class="pagination">
-            <?php for ($page = 1; $page <= $totalPages; $page++): ?>
-                <a href="tutor_dashboard.php?page=<?php echo $page; ?>" class="<?php if ($page == $currentPage) echo 'active'; ?>">
-                    <?php echo $page; ?>
-                </a>
-            <?php endfor; ?>
-        </div>
+<!--        <div class="pagination">-->
+<!--            --><?php //for ($page = 1; $page <= $totalPages; $page++): ?>
+<!--                <a href="tutor_dashboard.php?page=--><?php //echo $page; ?><!--" class="--><?php //if ($page == $currentPage) echo 'active'; ?><!--">-->
+<!--                    --><?php //echo $page; ?>
+<!--                </a>-->
+<!--            --><?php //endfor; ?>
+<!--        </div>-->
     </div>
 
     <script>
@@ -251,6 +353,8 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
         document.getElementById('startSession').addEventListener('click', function () {
             sessionPrompt.textContent = `Session started with ${selectedStudentName}`;
             sessionControls.style.display = "none";
+
+            //update requests
 
             const selectedItem = document.querySelector(`li[data-student-id='${selectedStudentId}']`);
             selectedItem.remove();

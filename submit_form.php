@@ -10,23 +10,63 @@ $class = $_POST['class'];
 $sessionType = $_POST['sessionType'];
 $subject = $_POST['subject'];
 
-// Insert the student into the queue for the selected class
-$insertQuery = "INSERT INTO students (full_name, student_id, email, class, session_type, subject) VALUES (:fullName, :studentID, :email, :class, :sessionType, :subject)";
-$stmt = $conn->prepare($insertQuery);
+//find all tutors that are logged in
+$tutorQuery = "SELECT tutor_id from tutor_courses where course_id='$class'";
+$stmt = $conn->prepare($tutorQuery);
+$stmt->execute();
+$tutorIDs = $stmt->fetchAll();
+
+$availableTutors = [];
+for($i=0; $i<count($tutorIDs); $i++){
+    $tutorID = $tutorIDs[$i]['tutor_id'];
+    $isAvailableQuery = "SELECT is_logged_in from tutors where utsa_id='$tutorID'";
+    $stmt = $conn->prepare($isAvailableQuery);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (isset($result['is_logged_in'])){
+        $isAvailable = $result['is_logged_in'];
+        if($isAvailable){
+            array_push($availableTutors, $tutorID);
+            echo "<script> console.log('Available: $tutorID');</script>";
+        }
+        else{
+            echo "<script> console.log('Unavailable: $tutorID');</script>";
+        }
+    }
+    else{
+        echo "<script> console.log('Could not extract is_logged_in for tutor: $tutorID');</script>";
+    }
+
+}
+
+//find most available tutor
+$mostAvailableTutorID = $availableTutors[0];
+$minQueueSize = PHP_INT_MAX;
+for($j=0; $j<count($availableTutors); $j++){
+    //count how many requests have been assigned to each tutor
+    $tutorID = $availableTutors[$j];
+    $queueSizeQuery = "SELECT COUNT(*) as queue_size FROM requests where assigned_tutor='$tutorID' ";
+    $stmt = $conn->prepare($queueSizeQuery);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $queueSize = $result['queue_size'];
+
+    if($queueSize < $minQueueSize){
+        $minQueueSize = $queueSize;
+        $mostAvailableTutorID = $tutorID;
+    }
+}
+
+//put into request
+$requestQuery = "INSERT INTO requests (student_name, student_id, course_id, topic, session_type) VALUES (:fullName, :studentID, :courseID, :topic, :session_type)";
+$stmt = $conn->prepare($requestQuery);
 $stmt->bindParam(':fullName', $fullName);
 $stmt->bindParam(':studentID', $studentID);
-$stmt->bindParam(':email', $email);
-$stmt->bindParam(':class', $class);
-$stmt->bindParam(':sessionType', $sessionType);
-$stmt->bindParam(':subject', $subject);
+$stmt->bindParam(':courseID', $class);
+$stmt->bindParam(':topic', $subject);
+$stmt->bindParam(':session_type', $sessionType);
 $stmt->execute();
-
-// Get the student's position in the queue
-$positionQuery = "SELECT COUNT(*) AS position FROM students WHERE class = :class AND submission_time <= NOW()";
-$positionStmt = $conn->prepare($positionQuery);
-$positionStmt->bindParam(':class', $class);
-$positionStmt->execute();
-$position = $positionStmt->fetch(PDO::FETCH_ASSOC)['position'];
+$requestID = $conn->lastInsertId();
 ?>
 
 <!DOCTYPE html>
@@ -89,14 +129,29 @@ $position = $positionStmt->fetch(PDO::FETCH_ASSOC)['position'];
 <body>
 
 <div class="container">
-    <h2>Thank you for your submission, <?php echo htmlspecialchars($fullName); ?>!</h2>
-    <p>You are number <?php echo $position; ?> in the queue for <?php echo htmlspecialchars($class); ?>.</p>
-    
-    <div class="buttons">
-        <a href="index.php">Home</a>
-        <button onclick="window.open('feedback.php?student_id=<?php echo $studentID; ?>', '_blank')">Give Feedback</button>
-    </div>
-</div>
+    <form method="post" action="submit_request.php">
+        <h2>Select a Tutor</h2>
+        <?php
+
+        for($i=0; $i<count($availableTutors); $i++){
+            $tutorID = $availableTutors[$i];
+            $tutorNameSQL = "SELECT tutor_name FROM tutors where utsa_id='$tutorID'";
+            $stmt = $conn->prepare($tutorNameSQL);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $tutorName = $result['tutor_name'];
+
+            if($tutorID == $mostAvailableTutorID) $tutorName .= " (Most Available)";
+
+            echo "<label>";
+            echo "<input type='radio' name='tutor_id' value='$availableTutors[$i]'> $tutorName</>";
+            echo "</label><br>";
+        }
+        ?>
+        <input type="hidden" name="request_id" value="<?php echo $requestID; ?>">
+
+        <input type="submit" name="Submit Tutor Request">
+    </form>
 
 </body>
 </html>

@@ -7,7 +7,7 @@ $studentId = $_POST['studentId'];
 $studentName = $_POST['studentName'];
 
 // Fetch student data from the students table
-$query = "SELECT * FROM students WHERE id = :studentId";
+$query = "SELECT * FROM requests WHERE student_id = :studentId";
 $stmt = $conn->prepare($query);
 $stmt->bindParam(':studentId', $studentId, PDO::PARAM_INT);
 $stmt->execute();
@@ -18,14 +18,15 @@ if ($studentData) {
     $insertQuery = "INSERT INTO tutor_sessions (student_name, student_id, subject, session_type, session_duration)
                     VALUES (:student_name, :student_id, :subject, :session_type, 0)"; // Set session_duration to 0 for now
     $insertStmt = $conn->prepare($insertQuery);
-    $insertStmt->bindParam(':student_name', $studentData['full_name']);
+    $insertStmt->bindParam(':student_name', $studentData['student_name']);
     $insertStmt->bindParam(':student_id', $studentData['student_id']);
-    $insertStmt->bindParam(':subject', $studentData['subject']);
+    $insertStmt->bindParam(':subject', $studentData['topic']);
     $insertStmt->bindParam(':session_type', $studentData['session_type']);
     $insertStmt->execute();
 
     // Delete student from the students table
-    $deleteQuery = "DELETE FROM students WHERE id = :studentId";
+    //TODO: make this delete request with request id not student id since a student could have entered multiple requests
+    $deleteQuery = "DELETE FROM requests WHERE student_id = :studentId";
     $deleteStmt = $conn->prepare($deleteQuery);
     $deleteStmt->bindParam(':studentId', $studentId, PDO::PARAM_INT);
     $deleteStmt->execute();
