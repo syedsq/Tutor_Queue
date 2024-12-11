@@ -1,0 +1,90 @@
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background: url('roadrunner.gif') no-repeat center center fixed, #00274d;
+    background-size: cover;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Feedback Container */
+.feedback-container {
+    /* background-color: rgba(255, 255, 255, 0.2);  */
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);  */
+    text-align: center;
+}
+
+/* Headings */
+h2 {
+    text-align: center;
+    color: #ff8200; /* UTSA Orange */
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px #0c2340;
+}
+
+/* Feedback Buttons */
+.feedback-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; 
+}
+
+.feedback-buttons input[type="image"] {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border: none;
+    padding: 5px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.feedback-buttons input[type="image"]:hover {
+    transform: scale(1.5);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .feedback-container {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .feedback-buttons input[type="image"] {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.feedback-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.feedback-buttons input[type="image"] {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border: none;
+    padding: 5px;
+    transition: transform 0.2s ease-in-out; 
+}
+
+.feedback-buttons input[type="image"]:hover {
+    transform: scale(1.5em);
+}
+

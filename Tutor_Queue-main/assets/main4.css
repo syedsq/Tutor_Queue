@@ -1,0 +1,119 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('https://www.overlandpartners.com/wp-content/uploads/2024/08/1830_N220_newweb-1-1024x768.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    margin: 0;
+    /* padding: 0; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.5);
+    
+    /* flex-direction: column; */
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+/* Wrapper to align the image with the container */
+.container-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+
+    flex: 1;
+    /* Ensures this section takes up available space */
+}
+
+/* Styling for the top image as a border */
+.top-line-image {
+    width: 100%;
+    margin: 0;
+}
+
+.top-line-image img {
+    width: 100%;
+    height: auto;
+    margin: 0; 
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /* box-shadow: 0 4px 10px rgba(12, 35, 64, 0.5); */
+}
+
+.container {
+    width: 100%;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    border: 5px solid black;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 4px 10px rgba(12, 35, 64, 0.5);
+    color: #0c2340;
+    position: relative;
+    z-index: 2;
+    /* text-shadow: 1px 1px 2px #0c2340; */
+    overflow-x: auto;
+    overflow-y: visible;
+
+    text-align: center;
+    
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Remove this pseudo-element code */
+.container::before {
+    display: none;
+}
+
+/* Header styling */
+h2 {
+    text-align: center;
+    color: #ff8200; 
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px #0c2340; 
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: rgba(150, 150, 150, 0.5);
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #ff8200;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(255, 255, 255, 0.4);
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(100, 100, 255, 0.3);
+}
+
+.top-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(12, 35, 64, 0.5); 
+}

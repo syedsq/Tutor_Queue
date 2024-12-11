@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clerk Sign-In Example</title>
+    <!-- Initialize Clerk with your Clerk Publishable Key -->
+    <script
+            async
+            crossorigin="anonymous"
+            data-clerk-publishable-key="pk_test_d2lsbGluZy1kaW5vc2F1ci05MS5jbGVyay5hY2NvdW50cy5kZXYk"
+            src="https://willing-dinosaur-91.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
+            type="text/javascript"
+    ></script>
+    <link href="../assets/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app" id="app">
+
+    </div>
+</body>
+
+
+<script>
+    window.addEventListener('load', async () => {
+        await Clerk.load();
+
+        // Check if user is signed in
+        if (Clerk.user) {
+            // Get the session ID
+            const sessionId = Clerk.session.id;
+
+            // Send the session ID to the backend for verification
+            fetch('verify_token.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ session_id: sessionId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.valid) {
+                        // If the session is valid, display the welcome message
+                        const userEmail = Clerk.user.emailAddresses[0].emailAddress;
+                        document.getElementById('app').innerHTML = `
+                        <div id="user-info">
+                            <h1>Welcome, ${Clerk.user.firstName}!</h1>
+                            <p>Email: ${userEmail}</p>
+                        </div>
+                        <div id="user-button"></div>
+                    `;
+
+                        // Mount the user button
+                        const userButtonDiv = document.getElementById('user-button');
+                        Clerk.mountUserButton(userButtonDiv);
+                    } else {
+                        // If the session is invalid, show the sign-in form
+                        document.getElementById('app').innerHTML = `
+                        <p>Authentication failed. Please try logging in again.</p>
+                        <div id="sign-in"></div>
+                    `;
+                        const signInDiv = document.getElementById('sign-in');
+                        Clerk.mountSignIn(signInDiv);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error verifying session:', error);
+                });
+        } else {
+            // If no user is signed in, show the sign-in form
+            document.getElementById('app').innerHTML = `
+                <div id="sign-in"></div>
+            `;
+            const signInDiv = document.getElementById('sign-in');
+            Clerk.mountSignIn(signInDiv);
+        }
+    });
+</script>
+
+</html>

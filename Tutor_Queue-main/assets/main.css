@@ -1,0 +1,563 @@
+body {
+    font-family: Arial, sans-serif;
+    background: url('https://www.overlandpartners.com/wp-content/uploads/2024/08/1830_N220_newweb-1-1024x768.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Wrapper to align the image with the container */
+.container-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+/* Styling for the top image as a border */
+.top-line-image {
+    width: 100%;
+    margin: 0;
+}
+
+.top-line-image img {
+    width: 100%;
+    height: auto;
+    margin: 0; 
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /* box-shadow: 0 4px 10px rgba(12, 35, 64, 0.5); */
+}
+
+.container {
+    width: 100%;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    border: 5px solid black;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 4px 10px rgba(12, 35, 64, 0.5);
+    color: #0c2340;
+    position: relative;
+    z-index: 2;
+    /* text-shadow: 1px 1px 2px #0c2340; */
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+
+/* Remove this pseudo-element code */
+.container::before {
+    display: none;
+}
+
+/* Header styling */
+h2 {
+    text-align: center;
+    color: #ff8200; /* UTSA Orange */
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px #0c2340; 
+}
+
+
+/* Form labels */
+label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: bold;
+    /* color: #dbdee3; */
+    color: #0c2340;
+    /* text-shadow: 1px 1px 2px #82a9d8;  */
+}
+
+/* Input and Select Styling */
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #333;
+    /* text-shadow: 1px 1px 2px #dbdee3;  */
+    box-shadow: 0 2px 5px rgba(12, 35, 64, 0.5);
+}
+
+/* Placeholder styling */
+input::placeholder {
+    color: #888888; 
+    font-style: italic;
+    opacity: 1; 
+}
+
+/* Submit Button Styling */
+input[type="submit"], .submit-btn {
+    background-color: #ff8200; /* UTSA Orange */
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-shadow: 1px 1px 2px #495a70; 
+    box-shadow: 0 2px 5px rgba(12, 35, 64, 0.5); 
+}
+
+input[type="submit"]:hover, .submit-btn:hover {
+    background-color: #e67300;
+}
+
+/* Select Option Styling */
+select option {
+    color: #00274d;
+}
+
+/* Form layout styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Radio Group Styling */
+.radio-group {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    color: #f15a22;
+    white-space: nowrap;
+    /* text-shadow: 1px 1px 2px #0c2340;  */
+}
+
+.radio-label input[type="radio"] {
+    margin-right: 8px;
+    transform: scale(1.2);
+}
+
+/* Buttons for other actions */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.buttons a, .buttons button {
+    background-color: #0c2340;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    text-shadow: 1px 1px 2px #495a70;
+    box-shadow: 0 1px 3px rgba(73, 90, 112, 0.5);
+}
+
+.buttons a:hover, .buttons button:hover {
+    background-color: #e67300;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: rgba(150, 150, 150, 0.5);
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #ff8200;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(255, 255, 255, 0.4);
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(100, 100, 255, 0.3);
+}
+
+.top-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(12, 35, 64, 0.5); 
+}
+
+
+/* Submit Button Styling */
+.submit-button {
+    background-color: #ff8200; /* UTSA Orange */
+    color: white;
+    border: none;
+    padding: 15px 30px; 
+    font-size: 1.2em; 
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+    text-shadow: 1px 1px 2px #495a70; 
+    box-shadow: 0 4px 10px rgba(12, 35, 64, 0.5); 
+    width: auto; 
+}
+
+/* Hover Effect */
+.submit-button:hover {
+    background-color: #e67300; 
+    transform: scale(1.05); 
+}
+
+/* Focus Effect  */
+.submit-button:focus {
+    outline: none; 
+    box-shadow: 0 0 0 3px rgba(255, 130, 0, 0.7); 
+}
+
+
+/* Wrapper for buttons to center them */
+.buttons {
+    display: flex; 
+    justify-content: center; 
+    gap: 15px; 
+    margin-top: 20px; 
+}
+
+/* Button Styling */
+.button {
+    background-color: #0c2340; /* Dark UTSA blue */
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: auto; 
+}
+
+/* Hover Effect */
+.button:hover {
+    background-color: #ff8200;
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Focus Effect */
+.button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(12, 35, 64, 0.5);
+}
+
+/* Active Effect */
+.button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+/* End Session Button Styling */
+.end-button {
+    background-color: #ff8200; /* UTSA Orange */
+    color: white;
+    padding: 12px 24px; 
+    border: none;
+    border-radius: 8px; 
+    font-size: 1.2em; 
+    font-weight: bold; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+}
+
+/* Hover Effect */
+.end-button:hover {
+    background-color: #e67300; 
+    transform: scale(1.05); 
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Active Effect */
+.end-button:active {
+    transform: scale(0.95); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
+}
+
+/* Focus Effect */
+.end-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 130, 0, 0.5); 
+}
+
+
+/* Timer Styling */
+.timer {
+    font-size: 64px; 
+    font-weight: bold;
+    margin-bottom: 20px; 
+    background-color: #0c2340;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Add margin to the container */
+.timer-container {
+    margin-bottom: 20px; 
+}
+
+/* Forms */
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Buttons */
+button {
+    background-color: #ff8200;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e67300;
+}
+
+/* Remove Button */
+.remove-button {
+    background-color: #d9534f;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.remove-button:hover {
+    background-color: #c9302c;
+}
+
+/* List Styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Header and Navbar */
+header .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #0c2340; /* Dark navy background */
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+header .brand-logo a {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ffcc00; /* Highlighted logo color */
+}
+header .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px; /* Spacing between links */
+}
+header .nav-links .nav-item {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+header .nav-links .nav-item:hover {
+    color: #ffcc00; /* Highlight link on hover */
+}
+
+
+/* Reset for body and html */
+/* html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+} */
+
+/* Ensure header is at the top */
+nav {
+    width: 100%;
+    background-color: #ffffff; 
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+}
+
+/* Footer stays at the bottom */
+footer {
+    width: 100%;
+    background-color: #0c2340;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Main content fills remaining space */
+.container-wrapper {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.feedback {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+input[type="file"] {
+    margin: 20px 0;
+}
+
+
+.top-line-image {
+    width: 100%;
+    height: 200px; /* Adjust height as needed */
+    background: url('assets/pics/san-antonio-skyline.png') no-repeat center center;
+    background-size: cover;
+    margin-bottom: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 0 4px 10px rgba(12, 35, 64, 0.5);
+}
+
+
+/* Hero Carousel */
+.hero-carousel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.carousel-slide {
+    display: flex;
+    width: 500%;
+    height: 100%;
+    animation: slide 20s infinite;
+}
+
+.carousel-slide img {
+    width: 20%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@keyframes slide {
+    0% { transform: translateX(0%); }
+    20% { transform: translateX(-20%); }
+    40% { transform: translateX(-40%); }
+    60% { transform: translateX(-60%); }
+    80% { transform: translateX(-80%); }
+    100% { transform: translateX(0%); }
+}
+
+/* Timer Display Fix */
+.timer {
+    position: relative;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    font-size: 2em;
+    color: #fff;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
