@@ -12,7 +12,7 @@
             src="https://willing-dinosaur-91.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
             type="text/javascript"
     ></script>
-    <link href="../assets/style.css" rel="stylesheet">
+    <link href="../assets/main.css" rel="stylesheet">
     <link rel="icon" type="img/jpg" href="../assets/utsa_favicon.jpg">
 </head>
 <body>
