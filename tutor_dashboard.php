@@ -15,16 +15,6 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
 // Determine the SQL LIMIT starting number
 $startingLimit = ($currentPage - 1) * $resultsPerPage;
 
-// Query to get total number of students for pagination
-$totalQuery = "SELECT COUNT(*) FROM students";
-$totalStmt = $conn->prepare($totalQuery);
-$totalStmt->execute();
-$totalStudents = $totalStmt->fetchColumn();
-
-// Calculate total pages
-$totalPages = ceil($totalStudents / $resultsPerPage);
-
-
 // Fetch students for the current page
 $query = "SELECT * FROM requests ORDER BY submission_time ASC LIMIT :startingLimit, :resultsPerPage";
 $stmt = $conn->prepare($query);

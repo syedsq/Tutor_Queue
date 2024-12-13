@@ -16,7 +16,8 @@ if ($userData) {
     $query = "
         INSERT INTO users (clerk_user_id, first_name, last_name, email, utsa_id)
         VALUES (:clerk_user_id, :first_name, :last_name, :email, :utsa_id)
-        ON DUPLICATE KEY UPDATE
+	ON DUPLICATE KEY UPDATE
+	    clerk_user_id = VALUES(clerk_user_id),
             first_name = VALUES(first_name),
             last_name = VALUES(last_name),
             email = VALUES(email),

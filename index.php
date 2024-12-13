@@ -6,21 +6,6 @@ require 'db_connect.php';
 $currentDay = date('l'); // e.g., "Monday"
 $currentTime = date('H:i:s'); // e.g., "14:30:00"
 
-// Fetch available tutors and their classes based on current time and day
-$availabilityQuery = "
-    SELECT t.subject, t.tutor_name, 
-    (SELECT COUNT(*) FROM students WHERE assigned_tutor = t.id) AS queue_count
-    FROM tutor_availability a
-    JOIN tutors t ON a.tutor_id = t.id
-    WHERE a.day_of_week = :currentDay
-    AND :currentTime BETWEEN a.start_time AND a.end_time
-";
-$availabilityStmt = $conn->prepare($availabilityQuery);
-$availabilityStmt->bindParam(':currentDay', $currentDay);
-$availabilityStmt->bindParam(':currentTime', $currentTime);
-$availabilityStmt->execute();
-$availableClasses = $availabilityStmt->fetchAll(PDO::FETCH_ASSOC);
-
 // Fetch session types
 $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
 

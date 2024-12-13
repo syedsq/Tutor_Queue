@@ -90,7 +90,7 @@ CREATE TABLE `student_feedback` (
 CREATE TABLE `tutors` (
   `id` int(11) NOT NULL,
   `tutor_name` varchar(255) NOT NULL,
-  `subject` varchar(255) NOT NULL,
+  `subject` varchar(255) DEFAULT NULL,
   `schedule` varchar(255) DEFAULT NULL,
   `active_sessions` int(11) DEFAULT 0,
   `email` varchar(255) NOT NULL,

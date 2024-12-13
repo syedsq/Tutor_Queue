@@ -60,8 +60,7 @@
             const signInDiv = document.getElementById('sign-in')
 
             Clerk.mountSignIn(signInDiv, {
-                redirectUrl: `${basePath}user-auth/new_user_flow.php`,
-                signUpUrl: `${basePath}user-auth/signup.php`
+                redirectUrl: `${basePath}user-auth/new_user_flow.php`
             });
         }
     });
