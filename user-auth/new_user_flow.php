@@ -8,8 +8,8 @@
             async
             crossorigin="anonymous"
             data-clerk-publishable-key="pk_test_d2lsbGluZy1kaW5vc2F1ci05MS5jbGVyay5hY2NvdW50cy5kZXYk"
-            src="https://willing-dinosaur-91.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
-            type="text/javascript"
+	    src="https://willing-dinosaur-91.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
+	    type="text/javascript"
     ></script>
     <link href="../assets/style.css" rel="stylesheet">
 </head>

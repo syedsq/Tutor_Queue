@@ -94,7 +94,7 @@ CREATE TABLE `tutors` (
   `schedule` varchar(255) DEFAULT NULL,
   `active_sessions` int(11) DEFAULT 0,
   `email` varchar(255) NOT NULL,
-  `banner_id` varchar(50) NOT NULL,
+  `utsa_id` varchar(50) NOT NULL,
   `is_logged_in` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -261,14 +261,16 @@ CREATE TABLE courses (
       course_name VARCHAR(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---Table to store tutor requests
+-- Table to store tutor requests
 CREATE TABLE requests (
       id INT(11) AUTO_INCREMENT PRIMARY KEY,
       student_name VARCHAR(64) NOT NULL,
       student_id VARCHAR(32) NOT NULL,
       course_id VARCHAR(32) NOT NULL,
       topic VARCHAR(64) NOT NULL,
-      submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      session_type VARCHAR(16) NOT NULL,
+      assigned_tutor VARCHAR(7) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Maps tutors to courses they teach
@@ -279,19 +281,19 @@ CREATE TABLE tutor_courses (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Maps students to courses they take
-CREATE TABLE student_course (
+CREATE TABLE student_courses (
     student_id VARCHAR(32) NOT NULL,
     course_id VARCHAR(32) NOT NULL,
     id INT(11) AUTO_INCREMENT PRIMARY KEY
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---List of all registered student ids
+-- List of all registered student ids
 CREATE TABLE student_data (
     utsa_id VARCHAR(32) NOT NULL,
     id INT(11) AUTO_INCREMENT PRIMARY KEY
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---List of all registered admin ids
+-- List of all registered admin ids
 CREATE TABLE admins(
     utsa_id VARCHAR(32) NOT NULL,
     id INT(11) AUTO_INCREMENT PRIMARY KEY

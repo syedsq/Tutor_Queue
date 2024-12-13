@@ -4,7 +4,7 @@
 $host = 'localhost'; // Assuming XAMPP defaults
 $db = 'tutor_management'; // The name of the database
 $user = 'root'; // Default XAMPP MySQL user
-$pass = ''; // XAMPP MySQL password (usually blank for default setup)
+$pass = 'SeniorDesign123'; // XAMPP MySQL password (usually blank for default setup)
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);

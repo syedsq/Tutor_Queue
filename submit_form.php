@@ -57,6 +57,9 @@ for($j=0; $j<count($availableTutors); $j++){
     }
 }
 
+//FIXME
+echo count ($availableTutors);
+
 //put into request
 $requestQuery = "INSERT INTO requests (student_name, student_id, course_id, topic, session_type) VALUES (:fullName, :studentID, :courseID, :topic, :session_type)";
 $stmt = $conn->prepare($requestQuery);

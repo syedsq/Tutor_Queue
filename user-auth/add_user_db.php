@@ -4,7 +4,10 @@ require '../db_connect.php';
 
 // Retrieve the JSON payload from the request
 $data = json_decode(file_get_contents('php://input'), true);
-
+if (!$data) {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid JSON payload']);
+    die();
+}
 // Extract user data from the payload
 $userData = $data['userData'] ?? null;
 
@@ -38,4 +41,3 @@ if ($userData) {
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Invalid user data provided']);
 }
-
