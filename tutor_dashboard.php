@@ -34,8 +34,9 @@ $student_requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutor Dashboard</title>
-    <link href="./assets/style.css" rel="stylesheet">
-    <style>
+    <!-- <link href="./assets/style.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="./assets/main.css" type="text/css">
+    <!-- <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #00274d; /* UTSA Navy Blue */
@@ -182,7 +183,7 @@ $student_requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
         .tutor-history-btn:hover {
             background-color: #e67300;
         }
-    </style>
+    </style> -->
     <script
             async
             crossorigin="anonymous"
@@ -284,6 +285,20 @@ $student_requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </script>
 </head>
 <body>
+    <div class="hero-carousel">
+        <div class="carousel-slide">
+            <img src="assets/pics/cheers.jpg" alt="Slide 1">
+            <img src="assets/pics/utsa main1.jpg" alt="Slide 2">
+            <img src="assets/pics/cars.jpg" alt="Slide 3">
+            <img src="assets/pics/UTSA_Monument.jpg" alt="Slide 4">
+            <img src="assets/pics/data.jpg" alt="Slide 5">
+        </div>
+    </div>
+
+    <div class="header">
+        <img src="assets/UTSA.png">
+    </div>
+
     <div class="user-button">
         <div id="user-button"></div>
     </div>
@@ -398,5 +413,6 @@ $student_requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
             window.open(`survey.php?student_name=${encodeURIComponent(studentName)}&subject=${encodeURIComponent(subject)}`, '_blank');
         }
     </script>
+    <?php include('templates/footer.php'); ?>
 </body>
 </html>

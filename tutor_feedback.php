@@ -12,7 +12,8 @@ $sessionType = isset($_GET['type']) ? htmlspecialchars($_GET['type']) : '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutor Feedback</title>
-    <style>
+    <link rel="stylesheet" href="./assets/main.css" type="text/css">
+    <!-- <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
@@ -72,9 +73,28 @@ $sessionType = isset($_GET['type']) ? htmlspecialchars($_GET['type']) : '';
         .submit-btn:hover {
             background-color: #0056b3;
         }
-    </style>
+    </style> -->
 </head>
 <body>
+
+<div class="hero-carousel">
+    <div class="carousel-slide">
+        <img src="assets/pics/cheers.jpg" alt="Slide 1">
+        <img src="assets/pics/cars.jpg" alt="Slide 2">
+        <img src="assets/pics/Roadrunner-Statue2.jpg" alt="Slide 3">
+        <img src="assets/pics/UTSA_Monument.jpg" alt="Slide 4">
+        <img src="assets/pics/data.jpg" alt="Slide 5">
+    </div>
+</div>
+
+<div class="header">
+    <img src="assets/UTSA.png">
+</div>
+
+<div class="container-wrapper">
+    <div class="top-line-image">
+        <img src="assets/pics/san-antonio-skyline.png" alt="San Antonio Skyline">
+    </div>
 
     <div class="container">
         <h2>Tutor Session Feedback</h2>
@@ -111,6 +131,9 @@ $sessionType = isset($_GET['type']) ? htmlspecialchars($_GET['type']) : '';
             document.getElementById('sliderValue').textContent = `Time (minutes): ${value}`;
         }
     </script>
+</div>
+
+<?php include('templates/footer.php'); ?>
 
 </body>
 </html>

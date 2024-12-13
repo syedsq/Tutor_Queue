@@ -94,8 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Tutor Availability</title>
+    <link rel="stylesheet" href="./assets/main.css" type="text/css">
     <style>
-        body {
+        /* body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             padding: 20px;
@@ -113,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         h2 {
             text-align: center;
             color: #ff8200; /* UTSA Orange */
-        }
+        } */
 
         .schedule-form {
             margin-top: 20px;
@@ -186,6 +187,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </script>
 </head>
 <body>
+    <div class="hero-carousel">
+        <div class="carousel-slide">
+            <img src="assets/pics/cheers.jpg" alt="Slide 1">
+            <img src="assets/pics/utsa main1.jpg" alt="Slide 2">
+            <img src="assets/pics/cars.jpg" alt="Slide 3">
+            <img src="assets/pics/UTSA_Monument.jpg" alt="Slide 4">
+            <img src="assets/pics/data.jpg" alt="Slide 5">
+        </div>
+    </div>
+
+    <div class="header">
+        <img src="assets/UTSA.png">
+    </div>
 
     <div class="container">
         <h2>Manage Availability</h2>
@@ -217,6 +231,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <button type="submit" class="submit-btn">Save Availability</button>
         </form>
     </div>
-
+    <?php include('templates/footer.php'); ?>
 </body>
 </html>

@@ -33,50 +33,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Feedback</title>
     <link rel="stylesheet" href="./assets/main2.css" type="text/css">
-//    <style>
-//        body {
-//            font-family: Arial, sans-serif;
-//            background-color: #00274d;
-//            color: white;
-//            display: flex;
-//            justify-content: center;
-//            align-items: center;
-//            height: 100vh;
-//        }
-//
-//        .feedback-container {
-//            background-color: #ffffff;
-//            color: black;
-//            padding: 20px;
-//            border-radius: 10px;
-//            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-//            text-align: center;
-//        }
-//
-//        h2 {
-//            color: #ff8200;
-//        }
-//
-//        .feedback-buttons {
-//            display: flex;
-//            justify-content: center;
-//            gap: 20px;
-//        }
-//
-//        .feedback-buttons button {
-//            background-color: #ff8200;
-//            color: white;
-//            padding: 10px 20px;
-//            border-radius: 5px;
-//            cursor: pointer;
-//            border: none;
-//            font-size: 18px;
-//        }
-//
-//        .feedback-buttons button:hover {
-//            background-color: #e67300;
-//        }
-//    </style>
+<!--
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #00274d;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .feedback-container {
+            background-color: #ffffff;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: #ff8200;
+        }
+
+        .feedback-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .feedback-buttons button {
+            background-color: #ff8200;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            font-size: 18px;
+        }
+
+        .feedback-buttons button:hover {
+            background-color: #e67300;
+        }
+    </style>
+-->
 </head>
 <body>
 
@@ -84,8 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h2>How was your experience?</h2>
     <form action="feedback.php?student_id=<?php echo htmlspecialchars($studentID); ?>" method="POST">
         <div class="feedback-buttons">
-//            <button type="submit" name="feedback" value="up">👍</button>
-//            <button type="submit" name="feedback" value="down">👎</button>
+<!--
+            <button type="submit" name="feedback" value="up">👍</button>
+            <button type="submit" name="feedback" value="down">👎</button>
+-->
             <input type="image" name="feedback" value="1" src="assets/pics/Bad.png" alt="Very Dissatisfied (1)">
             <input type="image" name="feedback" value="2" src="assets/pics/semisad.png" alt="Dissatisfied (2)">
             <input type="image" name="feedback" value="3" src="assets/pics/Medium.png" alt="Neutral (3)">

@@ -66,7 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove_tutor'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Tutors</title>
-    <style>
+    <link rel="stylesheet" href="./assets/main.css" type="text/css">
+    <!-- <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
@@ -141,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove_tutor'])) {
         .remove-button:hover {
             background-color: #c9302c;
         }
-    </style>
+    </style> -->
 
     <!-- Add this JavaScript for pop-up -->
     <script>
@@ -151,6 +152,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove_tutor'])) {
     </script>
 </head>
 <body>
+
+<div class="hero-carousel">
+    <div class="carousel-slide">
+        <img src="assets/pics/cheers.jpg" alt="Slide 1">
+        <img src="assets/pics/utsa main1.jpg" alt="Slide 2">
+        <img src="assets/pics/cars.jpg" alt="Slide 3">
+        <img src="assets/pics/UTSA_Monument.jpg" alt="Slide 4">
+        <img src="assets/pics/data.jpg" alt="Slide 5">
+    </div>
+</div>
+
+<div class="header">
+    <img src="assets/UTSA.png">
+</div>
+
+<div class="container-wrapper">
+    <div class="top-line-image">
+        <img src="assets/pics/san-antonio-skyline.png" alt="San Antonio Skyline">
+    </div>
+
     <div class="container">
         <h2>Add Tutor</h2>
         <form method="POST" action="manage_tutors.php">

@@ -9,7 +9,8 @@ require 'db_connect.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Portal</title>
-    <link href="./assets/style.css" rel="stylesheet">
+    <!-- <link href="./assets/style.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="./assets/main.css" type="text/css">
     <script
             async
             crossorigin="anonymous"
@@ -17,7 +18,7 @@ require 'db_connect.php';
             src="https://willing-dinosaur-91.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
             type="text/javascript"
     ></script>
-    <style>
+    <!-- <style>
         .button {
             background-color: #0c2340;
             color: white;
@@ -32,7 +33,7 @@ require 'db_connect.php';
         .button:hover {
             background-color: #173863;
         }
-    </style>
+    </style> -->
 
     <script>
         window.addEventListener("load", async () =>{
@@ -83,6 +84,25 @@ require 'db_connect.php';
     </script>
 </head>
 <body>
+<div class="hero-carousel">
+    <div class="carousel-slide">
+        <img src="assets/pics/cheers.jpg" alt="Slide 1">
+        <img src="assets/pics/utsa main1.jpg" alt="Slide 2">
+        <img src="assets/pics/cars.jpg" alt="Slide 3">
+        <img src="assets/pics/UTSA_Monument.jpg" alt="Slide 4">
+        <img src="assets/pics/data.jpg" alt="Slide 5">
+    </div>
+</div>
+
+<div class="header">
+    <img src="assets/UTSA.png">
+</div>
+
+<div class="container-wrapper">
+    <div class="top-line-image">
+        <img src="assets/pics/san-antonio-skyline.png" alt="San Antonio Skyline">
+    </div>
+
     <div class="user-button">
         <div id="user-button"></div>
     </div>
@@ -94,7 +114,11 @@ require 'db_connect.php';
 
         <!-- View Results Button -->
         <a href="results.php" class="button">View Results</a>
-    </div>
 
+        <!-- Upload CSV Button -->
+        <a href="upload_csv.php" class="button">Upload CSV File</a>
+    </div>
+</div>
+<?php include('templates/footer.php'); ?>
 </body>
 </html>

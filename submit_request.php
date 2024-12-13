@@ -30,6 +30,7 @@ $position = $positionStmt->fetch(PDO::FETCH_ASSOC)['position'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submission Confirmation</title>
+    <link rel="stylesheet" href="./assets/main.css" type="text/css">
     <style>
         /* Page styling for consistency with UTSA theme */
         body {

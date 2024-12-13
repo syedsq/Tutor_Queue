@@ -25,7 +25,8 @@ $sessions = $sessionsStmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Results</title>
-    <style>
+    <link rel="stylesheet" href="./assets/main.css" type="text/css">
+    <!-- <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
@@ -63,9 +64,13 @@ $sessions = $sessionsStmt->fetchAll(PDO::FETCH_ASSOC);
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-    </style>
+    </style> -->
 </head>
 <body>
+
+<div class="header">
+    <img src="assets/UTSA.png">
+</div>
 
 <div class="container">
     <h2>Admin Results</h2>
@@ -169,6 +174,6 @@ $sessions = $sessionsStmt->fetchAll(PDO::FETCH_ASSOC);
         ?>
     </table>
 </div>
-
+<?php include('templates/footer.php'); ?>
 </body>
 </html>

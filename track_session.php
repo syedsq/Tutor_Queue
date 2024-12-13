@@ -11,7 +11,9 @@ $full_name = $_GET['full_name'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tracking Session for <?php echo htmlspecialchars($full_name); ?></title>
-    <style>
+    <link rel="stylesheet" href="./assets/main.css" type="text/css">
+
+    <!-- <style>
         /* Basic styles for the session tracker */
         body {
             font-family: Arial, sans-serif;
@@ -47,7 +49,7 @@ $full_name = $_GET['full_name'];
         .end-button:hover {
             background-color: #e67300;
         }
-    </style>
+    </style> -->
 
     <script>
         // Timer functionality
@@ -66,18 +68,42 @@ $full_name = $_GET['full_name'];
 </head>
 <body>
 
-    <div class="container">
-        <h2>Session with <?php echo htmlspecialchars($full_name); ?></h2>
-
-        <!-- Timer display -->
-        <div class="timer" id="timer">0m 0s</div>
-
-        <!-- End session button -->
-        <form action="end_session.php" method="POST">
-            <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
-            <button type="submit" class="end-button">End Session</button>
-        </form>
+    <div class="hero-carousel">
+        <div class="carousel-slide">
+            <img src="assets/pics/cars.png" alt="Slide 1">
+            <img src="assets/pics/utsa main1.jpg" alt="Slide 2">
+            <img src="assets/pics/Roadrunner-Statue2.jpg" alt="Slide 3">
+            <img src="assets/pics/UTSA_Monument.jpg" alt="Slide 4">
+            <img src="assets/pics/data.jpg" alt="Slide 5">
+        </div>
     </div>
+
+    <div class="header">
+        <img src="assets/UTSA.png">
+    </div>
+
+    <div class="container-wrapper">
+        <div class="top-line-image">
+            <img src="assets/pics/san-antonio-skyline.png" alt="San Antonio Skyline">
+        </div>
+
+        <div class="container">
+            <h2>Session with <?php echo htmlspecialchars($full_name); ?></h2>
+
+            <!-- Timer display -->
+            <div class="timer" id="timer">0m 0s</div>
+
+            <!-- End session button -->
+            <form action="end_session.php" method="POST">
+                <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+                <button type="submit" class="end-button">End Session</button>
+            </form>
+        </div>
+    </div>
+
+    <?php
+    include('templates/footer.php');
+    ?>
 
 </body>
 </html>

@@ -26,7 +26,8 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
             type="text/javascript"
     ></script>
     <script src="auth.js"></script>
-    <link href="./assets/style.css" rel="stylesheet">
+    <!-- <link href="./assets/style.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="./assets/main.css" type="text/css">
     <script>
         // Load Clerk and redirect if user is not signed in
         window.addEventListener('load', async () => {
@@ -116,6 +117,26 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
     </script>
 </head>
 <body>
+
+<div class="hero-carousel">
+    <div class="carousel-slide">
+        <img src="assets/pics/cheers.jpg" alt="Slide 1">
+        <img src="assets/pics/utsa main1.jpg" alt="Slide 2">
+        <img src="assets/pics/cars.jpg" alt="Slide 3">
+        <img src="assets/pics/UTSA_Monument.jpg" alt="Slide 4">
+        <img src="assets/pics/data.jpg" alt="Slide 5">
+    </div>
+</div>
+
+<div class="header">
+    <img src="assets/UTSA.png">
+</div>
+
+<div class="container-wrapper">
+    <div class="top-line-image">
+        <img src="assets/pics/san-antonio-skyline.png" alt="San Antonio Skyline">
+    </div>
+
     <div class="user-button">
         <div id="user-button"></div>
     </div>
@@ -163,6 +184,8 @@ $sessionTypes = ['online' => 'Online', 'inperson' => 'In-Person'];
             <input type="submit" value="Find Tutors!">
         </form>
     </div>
+</div>
 
-</body>
-</html>
+<?php
+include('templates/footer.php');
+?>

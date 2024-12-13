@@ -16,7 +16,8 @@ $tutorHistory = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutor History</title>
-    <style>
+    <link rel="stylesheet" href="./assets/main.css" type="text/css">
+    <!-- <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #00274d; /* UTSA Navy Blue */
@@ -64,9 +65,12 @@ $tutorHistory = $stmt->fetchAll(PDO::FETCH_ASSOC);
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-    </style>
+    </style> -->
 </head>
 <body>
+    <div class="header">
+        <img src="assets/UTSA.png">
+    </div>
 
     <div class="container">
         <h2>Tutor History</h2>
@@ -93,6 +97,10 @@ $tutorHistory = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
     </div>
+
+    <?php
+    include('templates/footer.php');
+    ?>
 
 </body>
 </html>
